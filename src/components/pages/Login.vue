@@ -1,31 +1,38 @@
 <template>
   <div>
-    <div class="bg">
-      <img src="../../imgs/background.png" alt />
-    </div>
-    <div class="whitebox">
-      <div class="ushowImg">
-        <img src="../../imgs/UshowLogo.png" alt width="100px" />
-        <p class="ushowText">Ushow</p>
+    <form class="form-signin" @submit.prevent="signin">
+      <div class="bg">
+        <img src="../../imgs/background.png" alt />
       </div>
-      <div class="form-group account">
-        <label for="account" class="accountText">帳號</label>
-        <input id="account" type="text" class="accountInput form-control" v-model="user.username"/>
+      <div class="whitebox">
+        <div class="ushowImg">
+          <img src="../../imgs/UshowLogo.png" alt width="100px" />
+          <p class="ushowText">Ushow</p>
+        </div>
+        <div class="form-group account">
+          <label for="account" class="accountText">帳號</label>
+          <input id="account" type="text" class="accountInput form-control" v-model="user.username" />
+        </div>
+        <div class="form-group account">
+          <label for="password" class="accountText">密碼</label>
+          <input
+            id="password"
+            type="password"
+            class="accountInput form-control"
+            v-model="user.password"
+          />
+          <!-- <i class="far fa-eye passwordIcon"></i> -->
+        </div>
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me" /> Remember me
+          </label>
+        </div>
+        <button class="signIn btn">
+          <p class="signInText">Sign In</p>
+        </button>
       </div>
-      <div class="form-group account">
-        <label for="password" class="accountText">密碼</label>
-        <input id="password" type="text" class="accountInput form-control" v-model="user.password"/>
-        <!-- <i class="far fa-eye passwordIcon"></i> -->
-      </div>
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me" /> Remember me
-        </label>
-      </div>
-      <button class="signIn btn">
-        <p class="signInText">Sign In</p>
-      </button>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -34,11 +41,23 @@ export default {
   name: "Login",
   data() {
     return {
-        user: {
-            username: '',
-            password: '',
-        }
+      user: {
+        username: "",
+        password: ""
+      }
     };
+  },
+  methods: {
+    signin() {
+      const api = `${process.env.APIPATH}/signin`;
+      var vm = this;
+      this.$http.post(api, this.user).then(response => {
+        if (response.data.success) {
+          vm.$router.push("/");
+        }
+        console.log(response.data);
+      });
+    }
   }
 };
 </script>
