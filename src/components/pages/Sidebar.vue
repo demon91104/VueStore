@@ -1,4 +1,5 @@
 <template>
+  <div>
     <div class="sidebar">
       <div class="sidehead" :class="{'toggledHead':toggleMove}">
         <p class="sideheadText">Ushow</p>
@@ -75,13 +76,39 @@
         </div>
       </div>
     </div>
+    <div class="contentBlock" :class="{'toggledHead':toggleMove}">
+      <div class="rightImgBlock">
+        <img
+          class="rightImg"
+          src="../../imgs/user.png"
+          alt
+          data-container="body"
+          data-toggle="popover"
+          data-img="../../imgs/user.png/50x50"
+          data-placement="bottom"
+          data-content
+        />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import $ from "jquery";
+
 $(document).ready(function() {
   $(".toggleMenu").hide();
 });
+
+// $(function() {
+//   $("[data-toggle='popover']").popover({
+//     title: "",
+//     content: '<a class="btn btn-primary" href="#">Logout</a>',
+//     html: true,
+//     placement: "auto"
+//   });
+// });
+
 export default {
   data() {
     return {
@@ -106,7 +133,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $font-mid: 15px;
 $font-big: $font-mid * 1.5;
 $font-small: $font-mid * 0.8;
@@ -258,7 +285,7 @@ $animate-time: 0.5s;
         .downIcon {
           transition: $animate-time;
           margin-top: 3px;
-        }
+         }
       }
     }
 
@@ -278,6 +305,32 @@ $animate-time: 0.5s;
     }
   }
 }
+
+.contentBlock {
+  margin-left: $sidebar-width;
+  padding-top: 60px;
+  .rightImgBlock {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    z-index: 5;
+    margin-bottom: 30px;
+
+    .rightImg {
+      width: $user-img-size;
+      cursor: pointer;
+    }
+  }
+
+  footer {
+    font-size: $font-mid;
+    position: fixed;
+    right: 15px;
+    bottom: 20px;
+    color: $color-gray;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .sidebar {
     .sidehead {
@@ -313,10 +366,41 @@ $animate-time: 0.5s;
         border: 0px;
 
         .userBlock {
-          margin-top:0;
+          margin-top: 20px;
         }
       }
     }
   }
+
+  .contentBlock {
+    transition: $animate-time;
+    top: $mobile-Head-height;
+    margin-left: 10px;
+    .rightImgBlock {
+      width: 100vw;
+      right: 0;
+      top: 10px;
+      padding: 5px 0;
+      margin-left: -10px;
+      margin-bottom: -10px;
+      background-color: rgba(238, 238, 238, 0.7);
+      text-align: center;
+      position: relative;
+      display: none;
+    }
+    footer {
+      display: none;
+    }
+  }
+}
+
+// js用
+.rotate180 {
+  // animation-duration: 2s;
+  transform: rotate(180deg);
+}
+
+.toggledHead {
+  transform: translate($sidebar-width, 0);
 }
 </style>
