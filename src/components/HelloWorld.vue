@@ -18,7 +18,7 @@ export default {
         if (response.data.success) {
           vm.$router.push("/login");
         }
-        console.log(response.data);
+        // console.log(response.data);
       });
     }
   }
