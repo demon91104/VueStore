@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     signin() {
-      const api = `${process.env.APIPATH}/signin`;
+      const api = `${process.env.APIPATH}/admin/signin`;
       var vm = this;
       this.$http.post(api, this.user).then(response => {
         if (response.data.success) {
