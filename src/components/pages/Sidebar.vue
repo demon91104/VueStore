@@ -78,6 +78,7 @@
     </div>
     <div class="contentBlock" :class="{'toggledHead':toggleMove}">
       <div class="rightImgBlock">
+      <button class="btn btn-primary p-2" @click.prevent="signout">登出</button>
         <img
           class="rightImg"
           src="../../imgs/user.png"
@@ -95,14 +96,14 @@
 
 <script>
 import $ from "jquery";
-$(function() {
-  $("[data-toggle='popover']").popover({
-    title: "",
-    content: '<a class="btn btn-primary" href="#">Logout</a>',
-    html: true,
-    placement: "right"
-  });
-});
+// $(function() {
+//   $("[data-toggle='popover']").popover({
+//     title: "",
+//     content: '<a href="../" @click.prevent="signout">登出</a>',
+//     html: true,
+//     placement: "right"
+//   });
+// });
 export default {
   data() {
     return {
@@ -115,6 +116,16 @@ export default {
         .stop()
         .slideToggle();
     },
+     signout() {
+      const api = `${process.env.APIPATH}/logout`;
+      var vm = this;
+      this.$http.post(api, vm.user).then(response => {
+        if (response.data.success) {
+          vm.$router.push("/login");
+        }
+        // console.log(response.data);
+      });
+    },
     mainToggle(event) {
       // console.log(event);
       $(event.target)
@@ -122,7 +133,7 @@ export default {
         .stop()
         .slideToggle();
       $(event.target.lastElementChild).toggleClass("rotate180");
-    }
+    },
   }
 };
 </script>
