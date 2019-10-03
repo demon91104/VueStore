@@ -22,6 +22,7 @@
             v-model="user.password"
           />
           <!-- <i class="far fa-eye passwordIcon"></i> -->
+          <p class="text-danger" id="err"></p>
         </div>
         <div class="checkbox mb-3">
           <label>
@@ -37,6 +38,7 @@
 </template>
 
 <script>
+import $ from "jquery";
 export default {
   name: "Login",
   data() {
@@ -54,8 +56,10 @@ export default {
       this.$http.post(api, this.user).then(response => {
         if (response.data.success) {
           vm.$router.push("/admin/products");
+        } else {
+          document.getElementById("password").value = '';
+          $("#err").html("帳號或密碼有誤,請重新輸入!");
         }
-        console.log(response.data);
       });
     }
   }

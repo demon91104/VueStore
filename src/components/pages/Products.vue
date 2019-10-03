@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-right">
-      <button class="btn btn-outline-success mr-4" @click="openModal">建立新產品</button>
+      <button class="btn btn-outline-success mr-4" @click="openModal(true)">建立新產品</button>
     </div>
     <table class="table mt-2 text-center">
       <thead>
@@ -23,7 +23,8 @@
             <span v-else>未啟用</span>
           </td>
           <td>
-            <button class="btn btn-outline-primary">編輯</button>
+            <button class="btn btn-outline-primary" @click="openModal(false,item)">編輯</button>
+            <button class="btn btn-outline-danger" @click="removeModal(item)">刪除</button>
           </td>
         </tr>
       </tbody>
@@ -80,7 +81,7 @@
                     type="text"
                     class="form-control"
                     id="title"
-                    placeholder="請輸入標題"
+                    placeholder="請輸入標題" required
                     v-model="tempProduct.title"
                   />
                 </div>
@@ -212,7 +213,8 @@ export default {
   data() {
     return {
       products: [],
-      tempProduct: {}
+      tempProduct: {},
+      isNew : false,
     };
   },
   methods: {
@@ -224,17 +226,44 @@ export default {
         vm.products = response.data.products;
       });
     },
-    openModal() {
+    openModal(isNew, item) {
       $("#productModal").modal("show");
+      if (isNew) {
+          this.tempProduct = {};
+          this.isNew = true ;
+      }else{
+          this.tempProduct = Object.assign({},item); //因為物件傳參考特性 如果只寫item的話兩個值會一樣 所以這邊用es6的Object.assign方式
+          this.isNew = false ;                          //可將一個item的值寫進一個空的物件內 避免前後有參考特性
+      }
     },
     updateProduct() {
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product`;
+      let api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product`;
+      let httpMethods = 'post';
       const vm = this;
-      this.$http.post(api,{ data:vm.tempProduct}).then(response => {
+      if (!vm.isNew) {
+          api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
+          httpMethods = 'put';
+      }
+      this.$http[httpMethods](api,{ data:vm.tempProduct}).then(response => {
                         // 由於api內是一個物件包住data所以要再用一個物件把它包起來
         console.log(response.data);
+        if (response.data.success) {
+            $('#productModal').modal('hide')
+            vm.getProducts();
+        }else{
+            console('建立商品失敗');
+        }
         // vm.products = response.data.products;
       });
+    },
+    removeModal(item) {
+    //   const vm = this;
+      console.log(vm.isNew);
+    //   console.log(item);
+      vm.tempProduct = item;
+      vm.isNew = false;
+      $("#delProductModal").modal("show");
+      
     }
   },
   created() {
