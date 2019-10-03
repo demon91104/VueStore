@@ -1,11 +1,11 @@
 <template>
   <div>
-    <Sidebar/>
+    <Sidebar />
     <!-- 內容開始 -->
-      <div class="container-fluid pt-3">
-          1234564564564654654565645465456456456454654564
-      </div>
-      <!-- 內容結束 -->
+    <div class="contentSet">
+      <router-view></router-view>
+    </div>
+    <!-- 內容結束 -->
   </div>
 </template>
 
@@ -25,18 +25,27 @@ $(document).ready(function() {
 //   });
 // });
 
-import Sidebar from './Sidebar';
+import Sidebar from "./Sidebar";
 export default {
-    components:{
-        Sidebar,
-    },
-  data() {
-    return {
-    };
+  components: {
+    Sidebar
   },
+  data() {
+    return {};
+  }
 };
 </script>
 
 <style lang="scss" scoped>
+.contentSet {
+  padding-left: 250px;
+}
+@media screen and (max-width: 768px) {
+  .contentSet {
+    padding-left: 0px;
+    overflow-x: hidden;
 
+    // width: 100vw;
+  }
+}
 </style>

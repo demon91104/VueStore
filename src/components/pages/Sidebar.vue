@@ -161,6 +161,7 @@ $animate-time: 0.5s;
 }
 
 * {
+  overflow-x: hidden;
   margin: 0;
   padding: 0;
   font-size: $font-mid;
@@ -196,7 +197,6 @@ $animate-time: 0.5s;
     display: flex;
     position: fixed;
     z-index: 1;
-    padding-right: 1px;
     border-bottom: $user-line;
     transition: $animate-time;
 
@@ -285,7 +285,7 @@ $animate-time: 0.5s;
         .downIcon {
           transition: $animate-time;
           margin-top: 3px;
-         }
+        }
       }
     }
 
@@ -334,9 +334,8 @@ $animate-time: 0.5s;
 @media screen and (max-width: 768px) {
   .sidebar {
     .sidehead {
-      width: 100vw;
-      position: absolute;
-      border: 0px;
+      width: 100%;
+      position: fixed;
 
       .sideheadText {
         margin: auto;
@@ -354,19 +353,15 @@ $animate-time: 0.5s;
     }
 
     .sidebody {
+      padding-top: 0px;
       padding-left: 0;
       position: fixed;
       margin-left: -($sidebar-width);
       float: left;
-      .toggled {
-        padding-left: $sidebar-width;
-      }
-
       .userContent {
         border: 0px;
-
         .userBlock {
-          margin-top: 20px;
+          margin-top: 15px;
         }
       }
     }
@@ -375,20 +370,18 @@ $animate-time: 0.5s;
   .contentBlock {
     transition: $animate-time;
     top: $mobile-Head-height;
-    margin-left: 10px;
+    margin-left: 0px;
+    overflow-y: hidden;
     .rightImgBlock {
-      width: 100vw;
+      width: 100%;
       right: 0;
-      top: 10px;
+      top: 5px;
       padding: 5px 0;
-      margin-left: -10px;
-      margin-bottom: -10px;
+      //   margin-left: -10px;
+      margin-bottom: 5px;
       background-color: rgba(238, 238, 238, 0.7);
       text-align: center;
       position: relative;
-      display: none;
-    }
-    footer {
       display: none;
     }
   }
