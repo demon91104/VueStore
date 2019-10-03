@@ -314,6 +314,7 @@ $animate-time: 0.5s;
 
 .contentBlock {
   margin-left: $sidebar-width;
+  margin-bottom: 30px;
   // padding-top: 60px;
   .rightImgBlock {
     position: relative;
@@ -327,14 +328,6 @@ $animate-time: 0.5s;
       width: $user-img-size;
       cursor: pointer;
     }
-  }
-
-  footer {
-    font-size: $font-mid;
-    position: fixed;
-    right: 15px;
-    bottom: 20px;
-    color: $color-gray;
   }
 }
 
