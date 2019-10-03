@@ -290,6 +290,7 @@ $animate-time: 0.5s;
     }
 
     .toggleMenu {
+        display: none;
       li {
         margin: 0 10px 0 10px;
         padding: 8px 0 8px 40px;

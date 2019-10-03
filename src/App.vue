@@ -7,13 +7,11 @@
 <script>
 export default {
   name: "App",
-  created() {
-    const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products`;
-    console.log(api);
-    this.$http.get(api).then(response => {
-      console.log(response.data);
-    });
-  }
+  // created() {
+  //   const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products`;
+  //   this.$http.get(api).then(response => {
+  //   });
+  // }
 };
 </script>
 

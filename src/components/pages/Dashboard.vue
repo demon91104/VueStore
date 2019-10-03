@@ -12,10 +12,6 @@
 <script>
 import $ from "jquery";
 
-$(document).ready(function() {
-  $(".toggleMenu").hide();
-});
-
 // $(function() {
 //   $("[data-toggle='popover']").popover({
 //     title: "",
