@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div class="text-right mt-4">
+      <div class="text-right addProduct mt-2">
           <button class="btn btn-outline-success mr-4">建立新產品</button>
       </div>
       <table class="table mt-2 text-center">
@@ -49,4 +49,9 @@ export default {
             this.getProducts();
         }
 };
-</script>>
+</script>
+<style lang="scss" scoped>
+    .addProduct{
+        margin-top:500px;
+    }
+</style>

@@ -95,20 +95,14 @@
 
 <script>
 import $ from "jquery";
-
-$(document).ready(function() {
-  $(".toggleMenu").hide();
+$(function() {
+  $("[data-toggle='popover']").popover({
+    title: "",
+    content: '<a class="btn btn-primary" href="#">Logout</a>',
+    html: true,
+    placement: "right"
+  });
 });
-
-// $(function() {
-//   $("[data-toggle='popover']").popover({
-//     title: "",
-//     content: '<a class="btn btn-primary" href="#">Logout</a>',
-//     html: true,
-//     placement: "auto"
-//   });
-// });
-
 export default {
   data() {
     return {
@@ -309,13 +303,14 @@ $animate-time: 0.5s;
 
 .contentBlock {
   margin-left: $sidebar-width;
-  padding-top: 60px;
+  // padding-top: 60px;
   .rightImgBlock {
-    position: absolute;
-    right: 20px;
-    top: 10px;
+    position: relative;
+    text-align: right;
+    margin-right: 30px;
+    margin-top: 20px;
     z-index: 5;
-    margin-bottom: 30px;
+    // margin-bottom: 50px;
 
     .rightImg {
       width: $user-img-size;
@@ -336,7 +331,7 @@ $animate-time: 0.5s;
   .sidebar {
     .sidehead {
       width: 100%;
-      position: fixed;
+      position: relative;
 
       .sideheadText {
         margin: auto;
@@ -372,14 +367,10 @@ $animate-time: 0.5s;
     transition: $animate-time;
     top: $mobile-Head-height;
     margin-left: 0px;
-    overflow-y: hidden;
     .rightImgBlock {
       width: 100%;
-      right: 0;
-      top: 5px;
+      margin-top: 0px;
       padding: 5px 0;
-      //   margin-left: -10px;
-      margin-bottom: 5px;
       background-color: rgba(238, 238, 238, 0.7);
       text-align: center;
       position: relative;
