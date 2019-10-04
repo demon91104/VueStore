@@ -53,18 +53,33 @@
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="image">輸入圖片網址</label>
-                <input type="text" class="form-control" id="image"
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="image"
                     v-model="tempProduct.imageUrl"
-                    placeholder="請輸入圖片連結">
+                    placeholder="請輸入圖片連結"
+                  />
                 </div>
                 <div class="form-group">
-                  <label for="customFile">或 上傳圖片
+                  <label for="customFile">
+                    或 上傳圖片
                     <i class="fas fa-spinner fa-spin"></i>
                   </label>
-                  <input type="file" id="customFile" class="form-control" ref="files" @change="uploadFile">
+                  <input
+                    type="file"
+                    id="customFile"
+                    class="form-control"
+                    ref="files"
+                    @change="uploadFile"
+                  />
                 </div>
-                <img img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
-                  class="img-fluid" :src="tempProduct.imageUrl" alt="">
+                <img
+                  img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
+                  class="img-fluid"
+                  :src="tempProduct.imageUrl"
+                  alt
+                />
               </div>
               <div class="col-sm-8">
                 <div class="form-group">
@@ -74,7 +89,6 @@
                     class="form-control"
                     id="title"
                     placeholder="請輸入標題"
-                    required
                     v-model="tempProduct.title"
                   />
                 </div>
@@ -243,16 +257,16 @@ export default {
         if (response.data.success) {
           $("#productModal").modal("hide");
           vm.getProducts();
-          console.log('建立產品成功');
+          console.log("建立產品成功");
         } else {
           console("建立商品失敗");
         }
       });
     },
     removeModal(item) {
-        const vm = this ;
-        vm.tempProduct = item ;
-        
+      const vm = this;
+      vm.tempProduct = item;
+
       $("#delProductModal").modal("show");
     },
     removeData() {
@@ -262,16 +276,16 @@ export default {
         if (response.data.success) {
           $("#delProductModal").modal("hide");
           vm.getProducts();
-          console.log('刪除成功');
+          console.log("刪除成功");
         } else {
           $("#delProductModal").modal("hide");
-          console.log('刪除失敗');
+          console.log("刪除失敗");
         }
       });
-    }
-  },
-  uploadFile() {
+    },
+    uploadFile() {
       console.log(this);
+    }
   },
   created() {
     this.getProducts();
