@@ -284,8 +284,27 @@ export default {
       });
     },
     uploadFile() {
-      console.log(this);
-    }
+    //   console.log(this);
+      const vm = this;
+      const uploadedFile = this.$refs.files.files[0]; //將資料取出
+      const formData = new FormData(); //建立FormData實例後 , 加入想要的表單內容
+      formData.append('file-to-upload',uploadedFile); //第一個參數是欄位 , 第二個是欲上傳檔案
+      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/upload`;
+      this.$http.post(url,formData, {
+          header:{
+              'Content-Type':'multipart/form-data',
+          },
+      }).then((response) => {
+          console.log(response.data)
+          if (response.data.success) {
+            //   this.tempProduct.imageUrl = response.data.imageUrl;
+            //   console.log(this.tempProduct)
+              vm.$set(this.tempProduct,'imageUrl',response.data.imageUrl)
+          }else{
+              console.log('圖片加載失敗');
+          }
+      })
+    },
   },
   created() {
     this.getProducts();
