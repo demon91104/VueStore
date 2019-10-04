@@ -71,6 +71,7 @@
                 <img
                   img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
                   class="img-fluid"
+                  :src="tempProduct.imageUrl"
                   alt
                 />
               </div>
@@ -81,7 +82,8 @@
                     type="text"
                     class="form-control"
                     id="title"
-                    placeholder="請輸入標題" required
+                    placeholder="請輸入標題"
+                    required
                     v-model="tempProduct.title"
                   />
                 </div>
@@ -200,7 +202,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-danger">確認刪除</button>
+            <button type="button" class="btn btn-danger" @click="removeData">確認刪除</button>
           </div>
         </div>
       </div>
@@ -214,7 +216,7 @@ export default {
     return {
       products: [],
       tempProduct: {},
-      isNew : false,
+      isNew: false
     };
   },
   methods: {
@@ -222,48 +224,59 @@ export default {
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products`;
       const vm = this;
       this.$http.get(api).then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         vm.products = response.data.products;
       });
     },
     openModal(isNew, item) {
       $("#productModal").modal("show");
       if (isNew) {
-          this.tempProduct = {};
-          this.isNew = true ;
-      }else{
-          this.tempProduct = Object.assign({},item); //因為物件傳參考特性 如果只寫item的話兩個值會一樣 所以這邊用es6的Object.assign方式
-          this.isNew = false ;                          //可將一個item的值寫進一個空的物件內 避免前後有參考特性
+        this.tempProduct = {};
+        this.isNew = true;
+      } else {
+        this.tempProduct = Object.assign({}, item); //因為物件傳參考特性 如果只寫item的話兩個值會一樣 所以這邊用es6的Object.assign方式
+        this.isNew = false; //可將一個item的值寫進一個空的物件內 避免前後有參考特性
       }
     },
     updateProduct() {
       let api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product`;
-      let httpMethods = 'post';
+      let httpMethods = "post";
       const vm = this;
       if (!vm.isNew) {
-          api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
-          httpMethods = 'put';
+        api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
+        httpMethods = "put";
       }
-      this.$http[httpMethods](api,{ data:vm.tempProduct}).then(response => {
-                        // 由於api內是一個物件包住data所以要再用一個物件把它包起來
-        console.log(response.data);
+      this.$http[httpMethods](api, { data: vm.tempProduct }).then(response => {
+        // 由於api內是一個物件包住data所以要再用一個物件把它包起來
+        // console.log(response.data);
         if (response.data.success) {
-            $('#productModal').modal('hide')
-            vm.getProducts();
-        }else{
-            console('建立商品失敗');
+          $("#productModal").modal("hide");
+          vm.getProducts();
+          console.log('建立產品成功');
+        } else {
+          console("建立商品失敗");
         }
-        // vm.products = response.data.products;
       });
     },
     removeModal(item) {
-    //   const vm = this;
-      console.log(vm.isNew);
-    //   console.log(item);
-      vm.tempProduct = item;
-      vm.isNew = false;
+        const vm = this ;
+        vm.tempProduct = item ;
+        
       $("#delProductModal").modal("show");
-      
+    },
+    removeData() {
+      const vm = this;
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
+      this.$http.delete(api).then(response => {
+        if (response.data.success) {
+          $("#delProductModal").modal("hide");
+          vm.getProducts();
+          console.log('刪除成功');
+        } else {
+          $("#delProductModal").modal("hide");
+          console.log('刪除失敗');
+        }
+      });
     }
   },
   created() {
