@@ -65,7 +65,7 @@
                 <div class="form-group">
                   <label for="customFile">
                     或 上傳圖片
-                    <i class="fas fa-spinner fa-spin"></i>
+                    <i class="fas fa-spinner fa-spin" v-if="status.iconLoading"></i>
                   </label>
                   <input
                     type="file"
@@ -223,14 +223,17 @@ export default {
       products: [],
       tempProduct: {},
       isNew: false,
-      isLoading:false,
+      isLoading: false,
+      status: {
+        iconLoading: false
+      }
     };
   },
   methods: {
     getProducts() {
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products`;
       const vm = this;
-      vm.isLoading = true ;
+      vm.isLoading = true;
       this.$http.get(api).then(response => {
         console.log(response.data);
         vm.isLoading = false;
@@ -292,22 +295,24 @@ export default {
       const vm = this;
       const uploadedFile = this.$refs.files.files[0]; //將資料取出
       const formData = new FormData(); //建立FormData實例後 , 加入想要的表單內容
-      formData.append('file-to-upload',uploadedFile); //第一個參數是欄位 , 第二個是欲上傳檔案
+      formData.append("file-to-upload", uploadedFile); //第一個參數是欄位 , 第二個是欲上傳檔案
       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/upload`;
-      this.$http.post(url,formData, {
-          header:{
-              'Content-Type':'multipart/form-data',
-          },
-      }).then((response) => {
-          console.log(response.data)
+      vm.status.iconLoading = true;
+      this.$http
+        .post(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then((response) => {
+          console.log(response.data);
+          vm.status.iconLoading = false;
           if (response.data.success) {
             //   this.tempProduct.imageUrl = response.data.imageUrl;
             //   console.log(this.tempProduct)
-              vm.$set(this.tempProduct,'imageUrl',response.data.imageUrl)
-          }else{
-              console.log('圖片加載失敗');
+            vm.$set(this.tempProduct, "imageUrl", response.data.imageUrl)
           }
-      })
+        });
     },
   },
   created() {
