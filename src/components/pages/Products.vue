@@ -1,5 +1,6 @@
 <template>
   <div>
+    <loading :active.sync="isLoading"></loading>
     <div class="text-right">
       <button class="btn btn-outline-success mr-4" @click="openModal(true)">建立新產品</button>
     </div>
@@ -221,15 +222,18 @@ export default {
     return {
       products: [],
       tempProduct: {},
-      isNew: false
+      isNew: false,
+      isLoading:false,
     };
   },
   methods: {
     getProducts() {
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products`;
       const vm = this;
+      vm.isLoading = true ;
       this.$http.get(api).then(response => {
-        // console.log(response.data);
+        console.log(response.data);
+        vm.isLoading = false;
         vm.products = response.data.products;
       });
     },
@@ -284,7 +288,7 @@ export default {
       });
     },
     uploadFile() {
-    //   console.log(this);
+      console.log(this);
       const vm = this;
       const uploadedFile = this.$refs.files.files[0]; //將資料取出
       const formData = new FormData(); //建立FormData實例後 , 加入想要的表單內容
