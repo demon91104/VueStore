@@ -39,8 +39,7 @@
             class="btn btn-primary btn-icon btn-round"
             id="submitTable"
             type="submit"
-            data-toggle="modal"
-            data-target="#products"
+            @click="openModal"
           >
             <i class="fas fa-plus"></i>
           </button>
@@ -48,101 +47,67 @@
       </div>
       <div class="card-body">
         <form>
-          <table class="table text-center">
+          <table class="table text-center" id="tableId">
             <thead>
               <tr>
                 <th>刪除</th>
                 <th>商品編號</th>
                 <th>商品名稱</th>
-                <th>數量</th>
+                <th width="120px">數量</th>
                 <th>備註</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in productsSet" :key="item.id">
+              <tr v-for="(item,index) in isCheckItem" :key="item.id" >
                 <td>
-                  <button class="btn btn-danger">
+                  <button class="btn btn-danger" @click="deleteRow(index)">
                     <i class="fas fa-trash-alt"></i>
                   </button>
                 </td>
                 <td>{{item.price}}</td>
                 <td>{{item.category}}</td>
-                <td>{{item.unit}}</td>
-                <td>{{item.content}}</td>
+                <td>
+                  <input type="number" value="1" class="form-control text-center" />
+                </td>
+                <td>
+                  <textarea class="form-control" aria-label="With textarea"></textarea>
+                </td>
               </tr>
             </tbody>
           </table>
-          <div class="modal fade" tabindex="-1" role="dialog" id="products">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Modal title</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <table class="table text-center">
-                    <thead>
-                      <tr>
-                        <th>勾選</th>
-                        <th>類別編號</th>
-                        <th>類別名稱</th>
-                        <th>商品編號</th>
-                        <th>商品名稱</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="item in products" :key="item.id">
-                        <td>
-                          <label class="form-check-label">
-                            <input type="checkbox" class="" />
-                          </label>
-                        </td>
-                        <td>{{item.origin_price}}</td>
-                        <td>{{item.title}}</td>
-                        <td>{{item.price}}</td>
-                        <td>{{item.category}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <SelectFoodsModal @childevent="watchChildEvent"></SelectFoodsModal>
         </form>
       </div>
     </div>
   </div>
 </template>
 <script>
+import $ from "jquery";
+import SelectFoodsModal from "../pages/SelectFoodsModal";
 export default {
+  components: {
+    SelectFoodsModal
+  },
   data() {
     return {
-      products: [],
-      productsSet: []
+      isCheckItem: "",
     };
   },
   methods: {
-    getProducts() {
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products`;
-      const vm = this;
-      vm.isLoading = true;
-      this.$http.get(api).then(response => {
-        console.log(response.data);
-        vm.isLoading = false;
-        vm.products = response.data.products;
-      });
+    openModal() {
+      $("#productsModel").modal("show");
     },
-    openModal() {}
-  },
-  created() {
-    this.getProducts();
+    watchChildEvent(item) {
+      this.isCheckItem = item;
+      // console.log(isCheckItem)
+    },
+    deleteRow(index) {
+      this.$delete(this.isCheckItem, index)
+    }
   }
+  //   created() {
+  //     this.getProducts();
+  //   }
 };
 </script>
 <style lang="scss" scoped>
