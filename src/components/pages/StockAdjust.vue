@@ -1,20 +1,20 @@
 <template>
   <div class="col-md-12">
-    <div class="card">
-      <div class="card-header">
-        <p class="float-left font-weight-bold">庫存調整</p>
-        <div class="float-right">
-          <button class="btn btn-primary btn-icon btn-round" id="submitTable" type="submit">
-            <i class="fas fa-check"></i>
-          </button>
-          <button class="btn btn-danger btn-icon btn-round">
-            <i class="fas fa-times"></i>
-          </button>
+    <form>
+      <div class="card">
+        <div class="card-header">
+          <p class="float-left font-weight-bold">庫存調整</p>
+          <div class="float-right">
+            <button class="btn btn-primary btn-icon btn-round" id="submitTable" type="submit">
+              <i class="fas fa-check"></i>
+            </button>
+            <button class="btn btn-danger btn-icon btn-round">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <form>
+        <div class="card-body">
+          <div class="row">
             <div class="form-inline">
               <label for="1" class="labelSet">調整日期:</label>
               <input type="date" class="form-control inputSet" id="1" />
@@ -27,26 +27,23 @@
               <label for="4" class="labelSet">備註:</label>
               <textarea class="form-control inputSet" id="4" rows="1"></textarea>
             </div>
-          </form>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="card mt-5">
-      <div class="card-header">
-        <p class="float-left font-weight-bold">庫存調整 2</p>
-        <div class="float-right">
-          <button
-            class="btn btn-primary btn-icon btn-round"
-            id="submitTable"
-            type="submit"
-            @click="openModal"
-          >
-            <i class="fas fa-plus"></i>
-          </button>
+      <div class="card mt-5">
+        <div class="card-header">
+          <p class="float-left font-weight-bold">庫存調整 2</p>
+          <div class="float-right">
+            <button
+              class="btn btn-primary btn-icon btn-round"
+              id="submitTable"
+              @click="openModal"
+            >
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="card-body">
-        <form>
+        <div class="card-body">
           <table class="table text-center" id="tableId">
             <thead>
               <tr>
@@ -58,7 +55,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item,index) in isCheckItem" :key="item.id" >
+              <tr v-for="(item,index) in isCheckItem" :key="item.id">
                 <td>
                   <button class="btn btn-danger" @click="deleteRow(index)">
                     <i class="fas fa-trash-alt"></i>
@@ -76,9 +73,9 @@
             </tbody>
           </table>
           <SelectFoodsModal @childevent="watchChildEvent"></SelectFoodsModal>
-        </form>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 <script>
@@ -90,19 +87,20 @@ export default {
   },
   data() {
     return {
-      isCheckItem: "",
+      isCheckItem: [],
     };
   },
   methods: {
     openModal() {
       $("#productsModel").modal("show");
     },
-    watchChildEvent(item) {
-      this.isCheckItem = item;
-      // console.log(isCheckItem)
+    watchChildEvent(items) {
+      var aaa = items.map(function(item){})
+      console.log(aaa)
     },
     deleteRow(index) {
-      this.$delete(this.isCheckItem, index)
+        this.isCheckItem.splice(index,1)
+    //   this.$delete(this.isCheckItem, index);
     }
   }
   //   created() {
