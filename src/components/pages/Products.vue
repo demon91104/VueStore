@@ -225,7 +225,7 @@ export default {
       isNew: false,
       isLoading: false,
       status: {
-        iconLoading: false
+        iconLoading: false,
       }
     };
   },
@@ -298,19 +298,17 @@ export default {
       formData.append("file-to-upload", uploadedFile); //第一個參數是欄位 , 第二個是欲上傳檔案
       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/upload`;
       vm.status.iconLoading = true;
-      this.$http
-        .post(url, formData, {
+      this.$http.post(url, formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
-        })
-        .then((response) => {
+        }).then((response) => {
           console.log(response.data);
           vm.status.iconLoading = false;
           if (response.data.success) {
             //   this.tempProduct.imageUrl = response.data.imageUrl;
             //   console.log(this.tempProduct)
-            vm.$set(this.tempProduct, "imageUrl", response.data.imageUrl)
+            vm.$set(vm.tempProduct, "imageUrl", response.data.imageUrl)
           }
         });
     },

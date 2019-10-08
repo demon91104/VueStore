@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Login from '@/components/pages/Login'
 import Dashboard from '@/components/pages/Dashboard'
 import Products from '@/components/pages/Products'
+import StockAdjust from '@/components/pages/StockAdjust'
 Vue.use(Router)
 
 export default new Router({
@@ -32,6 +33,12 @@ export default new Router({
         path:'products',
         name: 'Products',
         component:Products,
+        meta: { requiresAuth: true },
+        },
+        {
+        path:'stockadjust',
+        name: 'StockAdjust',
+        component:StockAdjust,
         meta: { requiresAuth: true },
         },
       ],
