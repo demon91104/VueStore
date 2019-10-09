@@ -53,6 +53,7 @@ export default {
     };
   },
   methods: {
+      
     getProducts() {
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products`;
       const vm = this;

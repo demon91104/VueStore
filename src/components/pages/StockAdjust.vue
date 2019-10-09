@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-12">
     <form>
-      <div class="card">
+      <div class="card" method="post" action="#">
         <div class="card-header">
           <p class="float-left font-weight-bold">庫存調整</p>
           <div class="float-right">
@@ -34,11 +34,7 @@
         <div class="card-header">
           <p class="float-left font-weight-bold">庫存調整 2</p>
           <div class="float-right">
-            <button
-              class="btn btn-primary btn-icon btn-round"
-              id="submitTable"
-              @click="openModal"
-            >
+            <button class="btn btn-primary btn-icon btn-round" id="submitTable" @click="openModal">
               <i class="fas fa-plus"></i>
             </button>
           </div>
@@ -87,7 +83,7 @@ export default {
   },
   data() {
     return {
-      isCheckItem: [],
+      isCheckItem: []
     };
   },
   methods: {
@@ -95,12 +91,14 @@ export default {
       $("#productsModel").modal("show");
     },
     watchChildEvent(items) {
-      var aaa = items.map(function(item){})
-      console.log(aaa)
+        for(let i = 0 ; i < items.length ; i++)
+        this.isCheckItem.push(items[i])
+    //   this.isCheckItem = items; 此方法會一直刷新故不使用
+      // console.log(items)
     },
     deleteRow(index) {
-        this.isCheckItem.splice(index,1)
-    //   this.$delete(this.isCheckItem, index);
+      this.isCheckItem.splice(index, 1);
+      //   this.$delete(this.isCheckItem, index);
     }
   }
   //   created() {
