@@ -1,14 +1,14 @@
 <template>
   <div class="col-md-12">
     <form>
-      <div class="card" method="post" action="#">
+      <div class="card">
         <div class="card-header">
           <p class="float-left font-weight-bold">庫存調整</p>
           <div class="float-right">
-            <button class="btn btn-primary btn-icon btn-round" id="submitTable" type="submit">
+            <button class="btn btn-primary btn-icon btn-round rounded-circle" id="submitTable" type="submit">
               <i class="fas fa-check"></i>
             </button>
-            <button class="btn btn-danger btn-icon btn-round">
+            <button class="btn btn-danger btn-icon btn-round rounded-circle">
               <i class="fas fa-times"></i>
             </button>
           </div>
@@ -34,7 +34,7 @@
         <div class="card-header">
           <p class="float-left font-weight-bold">庫存調整 2</p>
           <div class="float-right">
-            <button class="btn btn-primary btn-icon btn-round" id="submitTable" @click="openModal">
+            <button class="btn btn-primary btn-icon btn-round rounded-circle" id="submitTable" @click="openModal">
               <i class="fas fa-plus"></i>
             </button>
           </div>
