@@ -44,12 +44,12 @@
 </template>
 
 <script>
-import $ from 'jquery'
+import $ from "jquery";
 export default {
+  props: ["switch-props"],
   data() {
     return {
-      products: [],
-      texts: ""
+      products: []
     };
   },
   methods: {
@@ -69,6 +69,11 @@ export default {
       });
       this.$emit("childevent", isChecked);
       $("#productsModel").modal("hide");
+    },
+  },
+  watch: {
+    switchProps() {
+      $("#productsModel").modal("show");
     }
   },
   created() {

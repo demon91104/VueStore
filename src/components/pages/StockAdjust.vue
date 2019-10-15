@@ -5,7 +5,11 @@
         <div class="card-header">
           <p class="float-left font-weight-bold">庫存調整</p>
           <div class="float-right">
-            <button class="btn btn-primary btn-icon btn-round rounded-circle" id="submitTable" type="submit">
+            <button
+              class="btn btn-primary btn-icon btn-round rounded-circle"
+              id="submitTable"
+              type="submit"
+            >
               <i class="fas fa-check"></i>
             </button>
             <button class="btn btn-danger btn-icon btn-round rounded-circle">
@@ -34,7 +38,11 @@
         <div class="card-header">
           <p class="float-left font-weight-bold">庫存調整 2</p>
           <div class="float-right">
-            <button class="btn btn-primary btn-icon btn-round rounded-circle" id="submitTable" @click="openModal">
+            <button
+              class="btn btn-primary btn-icon btn-round rounded-circle"
+              id="submitTable"
+              @click="openModal"
+            >
               <i class="fas fa-plus"></i>
             </button>
           </div>
@@ -68,7 +76,7 @@
               </tr>
             </tbody>
           </table>
-          <SelectFoodsModal @childevent="watchChildEvent"></SelectFoodsModal>
+          <SelectFoodsModal ref="foodsModal" :switch-props="modalSwitch" @childevent="watchChildEvent"></SelectFoodsModal>
         </div>
       </div>
     </form>
@@ -83,17 +91,23 @@ export default {
   },
   data() {
     return {
-      isCheckItem: []
+      isCheckItem: [],
+      modalSwitch: false
     };
   },
+  // watch: {
+  //   modalSwitch() {
+  //     this.$refs.foodsModal.modalOpen();
+  //   }
+  // },
   methods: {
     openModal() {
-      $("#productsModel").modal("show");
+      console.log(this.modalSwitch);
+      this.modalSwitch = !this.modalSwitch;
     },
     watchChildEvent(items) {
-        for(let i = 0 ; i < items.length ; i++)
-        this.isCheckItem.push(items[i])
-    //   this.isCheckItem = items; 此方法會一直刷新故不使用
+      for (let i = 0; i < items.length; i++) this.isCheckItem.push(items[i]);
+      //   this.isCheckItem = items; 此方法會一直刷新故不使用
       // console.log(items)
     },
     deleteRow(index) {
