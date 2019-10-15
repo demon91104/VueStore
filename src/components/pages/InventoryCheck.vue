@@ -5,46 +5,65 @@
         <p class="float-left">庫存盤點</p>
       </div>
       <div class="card-body">
-          <div class="form-inline">
-            <label for="1" class="labelSet">盤點日期:</label>
-            <input type="date" class="form-control inputSet" id="1" />
-            <label for="2" class="labelSet">倉庫:</label>
-            <input type="text" class="form-control inputSet" id="2" />
-          </div>
-          <div class="form-inline mt-4">
-            <label for="3" class="labelSet">盤點單號:</label>
-            <input type="text" class="form-control inputSet" readonly="readonly" id="3" />
-            <label for="4" class="labelSet">備註:</label>
-            <textarea class="form-control inputSet" id="4" rows="1"></textarea>
+          <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="inventoryDate" class="col-sm-3 col-form-label">盤點日期:</label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control" id="inventoryDate" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="warehouse" class="col-sm-3 col-form-label">倉庫</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" id="warehouse" @dblclick="warehouseModalOpen">
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="inventoryNumber" class="col-sm-3 col-form-label">盤點單號:</label>
+                        <div class="col-sm-9">
+                            <input type="text" readonly="readonly" class="form-control" id="inventoryNumber">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="remarks" class="col-sm-3 col-form-label">備註</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" id="remarks">
+                        </div>
+                    </div>
+                </div>
         </div>
       </div>
     </div>
+    <WarehouseModal ref="warehouseModal"></WarehouseModal>
   </div>
 </template>
 <script>
-export default {};
+import $ from "jquery";
+import WarehouseModal from "./WarehouseModal";
+export default {
+    components: {
+        WarehouseModal
+    },
+    data() {
+        return {
+            
+        }
+    },
+    methods: {
+        warehouseModalOpen(){
+            console.log("123")
+            this.$refs.warehouseModal.modalOpen();
+        }
+    },
+};
 </script>
 
-<style lang="scss" scoped>
-$font-mid: 15px;
-$font-big: $font-mid * 1.5;
-$font-small: $font-mid * 0.8;
-
-$color-white: #fff;
-$color-blue: #00558f;
-$color-gray: #7b7b7b;
-
-$user-img-size: 50px;
-$radius-size: 6px;
-
-$letter-spacing-ul: 3px;
-.labelSet {
-  letter-spacing: $letter-spacing-ul;
-  font-size: $font-mid;
-  margin: 0px 30px 0px 90px;
-}
-.inputSet {
-  width: 300px;
-  text-align: center;
-}
-</style>

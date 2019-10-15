@@ -5,8 +5,7 @@
         <div class="card-header">
           <p class="float-left font-weight-bold">庫存調整</p>
           <div class="float-right">
-            <button
-              class="btn btn-primary btn-icon btn-round rounded-circle"
+            <button class="btn btn-primary btn-icon btn-round rounded-circle"
               id="submitTable"
               type="submit"
             >
