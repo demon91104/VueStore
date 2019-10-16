@@ -22,9 +22,8 @@
             <tbody>
               <tr v-for="item in products" :key="item.id">
                 <td>
-                  <label class="form-check-label">
-                    <input type="checkbox" v-model="item.isChecked" />
-                  </label>
+                    <input type="checkbox" v-if="isCheckbox" v-model="item.isChecked" />
+                    <input type="radio" v-else v-model="item.isChecked"/>
                 </td>
                 <td>{{item.origin_price}}</td>
                 <td>{{item.title}}</td>
@@ -46,10 +45,10 @@
 <script>
 import $ from "jquery";
 export default {
-  props: ["switch-props"],
+  props: ["switch-props","isCheckbox"],
   data() {
     return {
-      products: []
+      products: [],
     };
   },
   methods: {
@@ -58,7 +57,7 @@ export default {
       const vm = this;
       vm.isLoading = true;
       this.$http.get(api).then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         vm.isLoading = false;
         vm.products = response.data.products;
       });
@@ -69,13 +68,17 @@ export default {
       });
       this.$emit("childevent", isChecked);
       $("#productsModel").modal("hide");
+      
     },
-  },
-  watch: {
-    switchProps() {
+    modalOpen() {
       $("#productsModel").modal("show");
     }
   },
+  // watch: {
+  //   switchProps() {
+  //     $("#productsModel").modal("show");
+  //   }
+  // },
   created() {
     this.getProducts();
   }

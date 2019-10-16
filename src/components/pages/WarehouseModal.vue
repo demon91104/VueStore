@@ -58,7 +58,11 @@ export default {
       $("#warehouseModal").modal("show");
     },
     checkitem() {
-        
+        const checked = this.areas.filter(function(item){
+            return item.checked == true ;
+        });
+        this.$emit("childevent",checked);
+        $('#warehouseModal').modal("hide")
     }
   },
   created() {

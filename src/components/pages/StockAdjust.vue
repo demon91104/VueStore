@@ -75,7 +75,7 @@
               </tr>
             </tbody>
           </table>
-          <SelectFoodsModal ref="foodsModal" :switch-props="modalSwitch" @childevent="watchChildEvent"></SelectFoodsModal>
+          <SelectFoodsModal ref="foodsModal" :switch-props="modalSwitch" :isCheckbox="true" @childevent="watchChildEvent"></SelectFoodsModal>
         </div>
       </div>
     </form>
@@ -91,7 +91,7 @@ export default {
   data() {
     return {
       isCheckItem: [],
-      modalSwitch: false
+      modalSwitch: false,
     };
   },
   // watch: {
@@ -101,11 +101,13 @@ export default {
   // },
   methods: {
     openModal() {
-      console.log(this.modalSwitch);
-      this.modalSwitch = !this.modalSwitch;
+      // console.log(this.modalSwitch);
+      // this.modalSwitch = !this.modalSwitch;
+      this.$refs.foodsModal.modalOpen();
     },
     watchChildEvent(items) {
-      for (let i = 0; i < items.length; i++) this.isCheckItem.push(items[i]);
+      for (let i = 0; i < items.length; i++)
+       this.isCheckItem.push(items[i]);
       //   this.isCheckItem = items; 此方法會一直刷新故不使用
       // console.log(items)
     },
